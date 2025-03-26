@@ -1,1 +1,2 @@
 luka_bot.log
+*.ipynb filter=strip-notebook
