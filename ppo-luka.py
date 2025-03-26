@@ -19,16 +19,16 @@ console_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.addHandler(console_handler)
 
-# defining constants
-GRAVITY = 9.81 # meters per second^2
-HOOP_X = 7.24  # Distance from hoop to NBA 3pt line (in meters)
-HOOP_Y = 3.05   # Hoop height (in meters)
-BASKET_RADIUS = 0.2286  # Approx. basketball hoop radius (9 inches) in meters
-BALL_RADIUS = 0.12065 # Approx. basketball radius (4.7 inches) in meters
+# defining constants (in terms of meters)
+GRAVITY = 9.81
+HOOP_X = 7.24 
+HOOP_Y = 3.05  
+BASKET_RADIUS = 0.2286 
+BALL_RADIUS = 0.12065
 
 # function to convert feet to meters
 def feet_to_meters(feet):
-    return feet * 0.3048  # Convert feet to meters
+    return feet * 0.3048
 
 
 #Class definining the LukaBot environment
@@ -82,7 +82,7 @@ class LukaBotEnv(gym.Env):
     def calculate_reward(self, x, y):
         # Penalize for missing the hoop (hit the ground)
         if y <= 0:
-            return -0.5
+            return -5
 
         # Reward for making the shot
         x_distance_to_hoop = abs(x - HOOP_X)
@@ -168,12 +168,8 @@ def train_and_visualize(total_timesteps=50):
     Args:
         total_timesteps (int): Number of training timesteps
     """
-    # Create environment
     env = LukaBotEnv()
-    
-    # Train PPO model
-    model = PPO("MlpPolicy", env, learning_rate=0.001, gamma=0.98, n_steps=1024, ent_coef=0.3, 
-            clip_range=0.2, verbose=1)
+    model = PPO("MlpPolicy", env, learning_rate=0.0001, gamma=0.98, n_steps=256, ent_coef=0.3, clip_range=0.2, verbose=1)
     model.learn(total_timesteps=total_timesteps, log_interval=100)
 
     # Test the trained model
