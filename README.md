@@ -30,3 +30,4 @@ Each episode consists of 10 shot attempts, and the agent receives rewards based 
 - Generative AI: ChatGPT, Claude, Gemini, Grok
 - Notes from COGS 188, taught by Professor Jason Flesicher
 - Assistance from Professor Kyle Shannon
+
